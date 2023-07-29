@@ -61,9 +61,8 @@ def fill_group_logs_f(conn_info=conn_info):
         """
 
         cur = conn.cursor()
-        cur.execute(querry) 
-
-        # res = cur.fetchall()
+        cur.execute(querry)
+        
         return 300
 
 
