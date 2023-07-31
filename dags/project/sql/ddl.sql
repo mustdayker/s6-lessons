@@ -10,7 +10,8 @@ CREATE TABLE STV2023070319__STAGING.group_log(
     event        varchar(100),
     "datetime"   timestamp
 )
-ORDER     BY group_id
+ORDER     BY group_id, user_id, "datetime"
+SEGMENTED BY hash(group_id) ALL nodes
 PARTITION BY "datetime"::date
 GROUP     BY calendar_hierarchy_day("datetime"::date, 3, 2)
 ;
@@ -28,7 +29,7 @@ CREATE TABLE STV2023070319__DWH.l_user_group_activity(
     load_src varchar(20)
 )
 ORDER     BY load_dt
-SEGMENTED BY hk_l_user_group_activity  all nodes
+SEGMENTED BY hk_user_id all nodes
 PARTITION BY load_dt::date
 GROUP     BY calendar_hierarchy_day(load_dt::date, 3, 2)
 ;
